@@ -2,7 +2,7 @@
 
 Injektor is a tiny implementation of dependency injection for the Go programming language.
 
-(GoDoc documentation)[http://godoc.org/github.com/mvader/injektor].
+[GoDoc documentation](http://godoc.org/github.com/mvader/injektor).
 MIT Licensed.
 
 ## Shared injector
