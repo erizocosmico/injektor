@@ -41,6 +41,11 @@ func GetInjector() Injector {
 	return sharedInjector
 }
 
+// Inject is a shortcut for injecting dependencies to types when using the shared injector.
+func Inject(in Injectable) {
+	GetInjector().Inject(in)
+}
+
 func (i *injector) Get(key string) interface{} {
 	if v, ok := i.bag[key]; ok {
 		return v

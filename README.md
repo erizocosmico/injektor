@@ -38,7 +38,7 @@ type PencilCase struct {
 // In the constructor we call Inject
 func NewPencilCase() *PencilCase {
 	p := &PencilCase{}
-	injektor.GetInjector().Inject(p)
+	injektor.Inject(p)
 
 	return p
 }
