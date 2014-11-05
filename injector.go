@@ -25,7 +25,7 @@ type injector struct {
 	bag map[string]interface{}
 }
 
-var sharedInjector *injector
+var sharedInjector Injector
 
 // Creates a new injector instance.
 func NewInjector() Injector {
