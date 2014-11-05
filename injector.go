@@ -35,7 +35,7 @@ func NewInjector() Injector {
 // GetInjector returns the shared injector instance.
 func GetInjector() Injector {
 	if sharedInjector == nil {
-		sharedInjector = &injector{make(map[string]interface{})}
+		sharedInjector = NewInjector()
 	}
 
 	return sharedInjector
