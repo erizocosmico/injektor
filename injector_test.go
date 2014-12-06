@@ -44,7 +44,7 @@ func TestSet(t *testing.T) {
 	i.Set("d", &s)
 
 	j := 0
-	for _, _ = range sharedInjector.bag {
+	for _, _ = range sharedInjector.(*injector).bag {
 		j++
 	}
 
@@ -106,7 +106,7 @@ func TestClear(t *testing.T) {
 	i.Clear()
 
 	j := 0
-	for _, _ = range sharedInjector.bag {
+	for _, _ = range sharedInjector.(*injector).bag {
 		j++
 	}
 

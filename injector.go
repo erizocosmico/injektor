@@ -1,5 +1,7 @@
 package injektor
 
+import "sync"
+
 // Injector acts as a container of dependencies and can inject them to Injectable objects.
 type Injector interface {
 	// Get retrieves and returns an item from the dependency bag assigned to the given key.
@@ -22,6 +24,7 @@ type Injectable interface {
 }
 
 type injector struct {
+	sync.RWMutex
 	bag map[string]interface{}
 }
 
@@ -29,7 +32,7 @@ var sharedInjector Injector
 
 // Creates a new injector instance.
 func NewInjector() Injector {
-	return &injector{make(map[string]interface{})}
+	return &injector{bag: make(map[string]interface{})}
 }
 
 // GetInjector returns the shared injector instance.
@@ -47,6 +50,8 @@ func Inject(in Injectable) {
 }
 
 func (i *injector) Get(key string) interface{} {
+	i.RLock()
+	defer i.RUnlock()
 	if v, ok := i.bag[key]; ok {
 		return v
 	}
@@ -61,15 +66,21 @@ func (i *injector) Extract(key string) interface{} {
 }
 
 func (i *injector) Set(key string, item interface{}) {
+	i.Lock()
 	i.bag[key] = item
+	i.Unlock()
 }
 
 func (i *injector) Remove(key string) {
+	i.Lock()
 	delete(i.bag, key)
+	i.Unlock()
 }
 
 func (i *injector) Clear() {
+	i.Lock()
 	i.bag = make(map[string]interface{})
+	i.Unlock()
 }
 
 func (i *injector) Inject(in Injectable) {
